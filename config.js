@@ -2,6 +2,6 @@
 // 2) Settings > API: copia "Project URL" y la clave "anon public"
 // 3) Pégalas aquí y guarda. Si lo dejas vacío, la página funciona en MODO DEMO.
 window.CFG = {
-  url: '',   // ej: 'https://abcdxyz.supabase.co'
-  key: ''    // ej: 'eyJhbGciOi...'
+  url: 'https://vzmgwxtwexvmqcybpgtr.supabase.co',
+  key: 'sb_publishable_nlQ-ziV8W_6X-YpXENBxpw_-pX3BJSp'
 };
