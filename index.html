@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Natural Resources · Grade 9</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;600;800;900&display=swap">
+<style>
+:root{--c1:#ff7e5f;--c2:#feb47b;--c3:#ffd36e;--c4:#d6336c;--c5:#6a1b9a;--glass:rgba(28,12,48,.48);--line:rgba(255,255,255,.22)}
+*{box-sizing:border-box;margin:0}
+html,body{min-height:100%}
+body{font-family:'Urbanist',system-ui,sans-serif;color:#fff;padding-top:env(safe-area-inset-top,0)}
+/* CIELO ANIMADO: amanecer > dia > atardecer > noche (60s) */
+.sky{position:fixed;inset:0;z-index:-3;opacity:0;animation:fade 60s linear infinite}
+.s1{background:linear-gradient(#5b5a9e,#e98aa0 55%,#ffc58a);animation-name:f1}
+.s2{background:linear-gradient(#3aa0d8,#8fd0ee 60%,#ffe9b0);animation-name:f2}
+.s3{background:linear-gradient(#5a2a82,#d6336c 50%,#ff9a52 80%,#ffd36e);animation-name:f3}
+.s4{background:linear-gradient(#070421,#1b1040 60%,#3b1d5e);animation-name:f4}
+@keyframes f1{0%,8%{opacity:1}20%,90%{opacity:0}100%{opacity:1}}
+@keyframes f2{0%,10%{opacity:0}22%,36%{opacity:1}46%,100%{opacity:0}}
+@keyframes f3{0%,34%{opacity:0}46%,56%{opacity:1}66%,100%{opacity:0}}
+@keyframes f4{0%,56%{opacity:0}68%,90%{opacity:1}100%{opacity:0}}
+.orb{position:fixed;z-index:-2;width:90px;height:90px;border-radius:50%;top:75%;left:-12%}
+.sun{background:radial-gradient(circle,#fff6c9 20%,#ffd36e 55%,#ff9a52);box-shadow:0 0 90px 40px rgba(255,170,80,.55);animation:sunx 60s linear infinite,suny 60s linear infinite}
+.moon{background:radial-gradient(circle at 35% 35%,#fff,#cfd6ff);box-shadow:0 0 60px 20px rgba(190,200,255,.35);width:60px;height:60px;animation:moonx 60s linear infinite,moony 60s linear infinite}
+@keyframes sunx{0%{left:-12%;opacity:1}58%{left:112%;opacity:1}59%,100%{left:112%;opacity:0}}
+@keyframes suny{0%{top:78%}30%{top:7%}58%{top:78%}100%{top:78%}}
+@keyframes moonx{0%,58%{left:-12%;opacity:0}60%{opacity:1;left:-8%}100%{left:112%;opacity:1}}
+@keyframes moony{0%,58%{top:70%}80%{top:9%}100%{top:70%}}
+.stars{position:fixed;inset:0;z-index:-2;opacity:0;animation:f4 60s linear infinite;background-image:radial-gradient(2px 2px at 20px 30px,#fff,transparent),radial-gradient(2px 2px at 140px 90px,#fff,transparent),radial-gradient(1.5px 1.5px at 90px 160px,#ffd,transparent),radial-gradient(2px 2px at 220px 40px,#fff,transparent);background-size:260px 200px}
+.hills{position:fixed;left:0;right:0;bottom:0;height:22vh;z-index:-1;background:linear-gradient(transparent,rgba(30,10,40,.55));clip-path:polygon(0 60%,15% 40%,35% 62%,55% 35%,78% 58%,100% 38%,100% 100%,0 100%)}
+/* NAV */
+header{position:sticky;top:0;z-index:20;backdrop-filter:blur(16px);background:rgba(20,8,36,.45);border-bottom:1px solid var(--line)}
+.bar{max-width:1100px;margin:auto;padding:12px 18px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.logo{font-weight:900;font-size:1.15rem;letter-spacing:.3px;background:linear-gradient(90deg,var(--c3),var(--c1));-webkit-background-clip:text;background-clip:text;color:transparent}
+nav{display:flex;gap:6px;flex-wrap:wrap;margin-left:auto}
+nav button,.btn{font:inherit;font-weight:700;color:#fff;border:1px solid var(--line);background:rgba(255,255,255,.08);padding:9px 16px;border-radius:999px;cursor:pointer;transition:.25s}
+nav button:hover,.btn:hover{background:rgba(255,255,255,.2);transform:translateY(-2px)}
+nav button.on,.btn.pri{background:linear-gradient(90deg,var(--c1),var(--c4));border-color:transparent;box-shadow:0 6px 20px rgba(214,51,108,.4)}
+main{max-width:1100px;margin:auto;padding:28px 18px 80px}
+.view{display:none;animation:rise .6s both}.view.on{display:block}
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+h1{font-size:clamp(2.2rem,6vw,4.2rem);font-weight:900;line-height:1.05;text-shadow:0 4px 30px rgba(0,0,0,.35)}
+h2{font-size:1.9rem;font-weight:800;margin-bottom:6px}
+p.lead{font-size:1.15rem;opacity:.92;max-width:640px;margin:14px 0 22px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:18px;margin-top:20px}
+.card{background:var(--glass);backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:22px;padding:22px;transition:.3s;position:relative;overflow:hidden}
+.card:hover{transform:translateY(-8px) scale(1.02);box-shadow:0 18px 40px rgba(0,0,0,.35),0 0 0 1px var(--c2)}
+.card::after{content:"";position:absolute;inset:auto -30% -60% auto;width:160px;height:160px;border-radius:50%;background:radial-gradient(var(--c1),transparent 70%);opacity:.25;transition:.4s}
+.card:hover::after{opacity:.6;transform:scale(1.4)}
+.tag{display:inline-block;font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:1px;padding:4px 10px;border-radius:99px;background:rgba(255,211,110,.2);color:var(--c3);margin-bottom:10px}
+.card h3{font-size:1.2rem;margin-bottom:8px}
+.card .go{margin-top:12px;font-weight:700;color:var(--c2)}
+.meta{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0}
+.meta span{background:rgba(255,255,255,.12);padding:6px 14px;border-radius:99px;font-size:.9rem;font-weight:600}
+.team .card{text-align:center}
+.team img,.ph{width:130px;height:130px;border-radius:50%;object-fit:cover;border:4px solid var(--c2);margin:0 auto 14px;display:grid;place-items:center;font-size:2.4rem;font-weight:900;background:linear-gradient(135deg,var(--c1),var(--c5))}
+/* MODAL */
+.modal{position:fixed;inset:0;z-index:50;display:none;place-items:center;background:rgba(10,4,24,.6);backdrop-filter:blur(8px);padding:16px}
+.modal.on{display:grid}
+.box{width:min(760px,100%);max-height:90vh;overflow:auto;background:rgba(32,14,56,.92);border:1px solid var(--line);border-radius:24px;padding:26px;animation:rise .4s both}
+.x{float:right;font-size:1.4rem;background:none;border:0;color:#fff;cursor:pointer}
+.opt{display:block;width:100%;text-align:left;margin:8px 0;padding:12px 16px;border-radius:14px;font:inherit;font-weight:600;color:#fff;background:rgba(255,255,255,.1);border:1px solid var(--line);cursor:pointer;transition:.2s}
+.opt:hover{background:rgba(255,255,255,.22);transform:translateX(5px)}
+.opt.ok{background:#1f9d6a}.opt.no{background:#c0392b}
+.mem{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px;margin-top:14px}
+.mc{height:78px;border-radius:14px;display:grid;place-items:center;text-align:center;font-weight:800;cursor:pointer;background:linear-gradient(135deg,var(--c1),var(--c5));transition:.3s;font-size:.95rem;padding:4px}
+.mc.f{background:#fff;color:#2a1240;transform:rotateY(0)}
+.mc.d{background:#1f9d6a;color:#fff}
+.mc:not(.f):not(.d){color:transparent}
+input,select,textarea{width:100%;font:inherit;color:#fff;background:rgba(255,255,255,.1);border:1px solid var(--line);border-radius:12px;padding:11px 14px;margin:6px 0 10px}
+select option{color:#222}
+label{font-weight:700;font-size:.9rem}
+iframe{width:100%;height:420px;border:0;border-radius:16px;background:#fff}
+.txt{white-space:pre-wrap;line-height:1.65}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.li{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}
+.sm{padding:6px 12px;font-size:.85rem}
+#toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1f9d6a;padding:12px 22px;border-radius:99px;font-weight:700;opacity:0;pointer-events:none;transition:.4s;z-index:99}
+#toast.on{opacity:1}
+textarea{resize:vertical}
+.pbar{height:10px;border-radius:9px;background:rgba(255,255,255,.18);overflow:hidden;margin:10px 0 4px}
+.pbar i{display:block;height:100%;background:linear-gradient(90deg,var(--c3),var(--c1),var(--c4));transition:width .8s}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01s!important;animation-iteration-count:1!important}}
+</style>
+</head>
+<body>
+<div class="sky s1"></div><div class="sky s2"></div><div class="sky s3"></div><div class="sky s4"></div>
+<div class="stars"></div><div class="orb sun"></div><div class="orb moon"></div><div class="hills"></div>
+<header><div class="bar"><span class="logo">🌅 Natural Resources</span><nav id="nav"></nav></div></header>
+<main id="main"></main>
+<div class="modal" id="modal"><div class="box" id="box"></div></div>
+<div id="toast"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="config.js"></script>
+<script>
+/* ============ CONFIGURACION: pega aqui tus datos de Supabase (Settings > API) ============ */
+const CFG=window.CFG||{url:'',key:''}; // se edita en config.js
+const TEAM=[['Darly Torrado','docente1.jpg'],['Maria Alexandra Callejas','docente2.jpg'],['Andrea Vanesa Serrano','docente3.jpg'],['Andrea Paola','docente4.jpg']];
+const GRADES=[0,1,2,3,4,5,6,7,8,9,10,11]; // 0 = Preescolar (editable)
+const gl=g=>g===0?'Preescolar':'Grado '+g;
+const MOM={
+ inicio:{n:'1 · Inicio',e:'🌄',t:'Exploración y saberes previos',time:'15 min',obj:'Activar vocabulario y observar el entorno natural cercano.'},
+ desarrollo:{n:'2 · Desarrollo',e:'☀️',t:'Descripción, comparación y problemas',time:'45 min',obj:'Describir y comparar recursos naturales con oraciones simples en inglés.'},
+ cierre:{n:'3 · Cierre',e:'🌇',t:'Reto final y producto digital',time:'30 min',obj:'Crear un producto digital en inglés sobre dos recursos de la comunidad.'}};
+const Q=(q,o,a)=>({q,o,a});
+const DEFAULT=[
+ {moment:'inicio',title:'Look and think',kind:'task',body:{intro:'Observa tu entorno (río, bosque, montaña, lago) y responde:',fields:['1. What can you see? (¿Qué ves?)','2. Do you know these places? (river, forest)','3. What natural resources can you identify?','4. Which place is near your community? (mountain, lake)']}},
+ {moment:'inicio',title:'Vocabulary memory',kind:'memory',body:{pairs:[['water','agua'],['river','río'],['lake','lago'],['forest','bosque'],['mountain','montaña'],['tree','árbol'],['animals','animales'],['soil','suelo']]}},
+ {moment:'inicio',title:'What is it?',kind:'quiz',body:{qs:[Q('It has a lot of trees and animals.',['forest','mountain','soil','river'],0),Q('It is very high. Sometimes it has snow.',['lake','mountain','tree','river'],1),Q('Plants grow in it. It is brown.',['water','soil','forest','lake'],1),Q('It is long and its water moves.',['river','mountain','soil','tree'],0)]}},
+ {moment:'inicio',title:'Our community',kind:'task',body:{intro:'Piensa en los recursos naturales que te rodean. Completa:',fields:['My community has: ______','A water source I know is: ______','Why is it important?','How do people use it?','What problems can affect it?']}},
+ {moment:'desarrollo',title:"Let's describe a natural resource",kind:'task',body:{intro:'Describe el bosque (forest) usando las cuatro expresiones:',fields:['This is ______.','It is located ______.','It has ______.','It is important because ______.'],model:'This is a forest. It is located on the mountain. It has many trees, birds and insects. It is important because it gives us clean air and it is home for animals.'}},
+ {moment:'desarrollo',title:'Record your description',kind:'audio',body:{text:'Lee en voz alta tu descripción del recurso natural (máx. 30 segundos) y envía la grabación.',max:30}},
+ {moment:'desarrollo',title:"Let's compare",kind:'quiz',body:{qs:[Q('The river is ___ than the stream.',['longer','more long','longest'],0),Q('The forest is ___ than the park.',['larger','more large','largest'],0),Q('The lake is ___ than the stream.',['beautifuler','more beautiful','most beautiful'],1),Q('___ resources are important.',['Both','Than','More'],0)]}},
+ {moment:'desarrollo',title:'Compare them!',kind:'task',body:{intro:'The river: 50 km long, big and deep, many fish.\nThe stream: 5 km long, small and clean, a few fish.\n\nEscribe tres comparaciones:',fields:['Comparison 1','Comparison 2','Comparison 3 (Both…)'],model:'The river is longer than the stream. The stream is smaller than the river. Both have fish.'}},
+ {moment:'desarrollo',title:'Should or shouldn’t?',kind:'quiz',body:{qs:[Q('We ___ recycle plastic bottles.',['should',"shouldn't"],0),Q('We ___ leave the tap open.',['should',"shouldn't"],1),Q('We ___ plant trees.',['should',"shouldn't"],0),Q('We ___ burn the forest.',['should',"shouldn't"],1),Q('We ___ use less water in the shower.',['should',"shouldn't"],0),Q('We ___ hunt wild animals.',['should',"shouldn't"],1)]}},
+ {moment:'desarrollo',title:'Problems we can see',kind:'task',body:{intro:'Garbage in rivers · Water pollution · Cutting down trees · Wasting water · Damage to natural areas',fields:['I can see ______ in my community.','Two things we should do:','Two things we shouldn’t do:']}},
+ {moment:'cierre',title:'Your challenge',kind:'task',body:{intro:'Con tu grupo elige dos recursos naturales o fuentes de agua. Investiga y escribe (Google Earth, Google Maps, página del municipio):',fields:['1. Name (resource 1 and 2)','2. Location','3. Characteristics','4. Importance','5. Similarities','6. Differences','7. Environmental problems','8. Possible solutions']}},
+ {moment:'cierre',title:'Create your digital product',kind:'task',body:{intro:'Crea en inglés una historia digital o un video corto con la información de tu grupo (Canva, Genially, CapCut).',fields:['Product I choose (digital story / short video)','Script or storyline in English (6-8 sentences)','Link to my product (Canva, Genially, YouTube, Drive)'],model:'Recuerda usar: This is… It is located… It has… It is important because… is bigger/longer than… Both…'}}
+];
+const DEFAULT_PRE=[
+ {moment:'inicio',title:'¿Qué ves? · Look!',kind:'memory',body:{pairs:[['💧','water'],['🌳','tree'],['🐟','fish'],['⛰️','mountain'],['🌸','flower'],['☀️','sun']]}},
+ {moment:'inicio',title:'Nuestro entorno',kind:'task',body:{intro:'Cuéntale a tu seño o a tu familia: ¿qué cosas de la naturaleza ves cerca de tu casa? Escribe o dicta una palabra:',fields:['Cerca de mi casa hay…']}},
+ {moment:'desarrollo',title:'¿Cómo se dice?',kind:'quiz',body:{qs:[Q('💧 ¿Cómo se dice en inglés?',['water','tree','sun'],0),Q('🌳 ¿Cómo se dice en inglés?',['fish','tree','flower'],1),Q('☀️ ¿Cómo se dice en inglés?',['sun','water','mountain'],0),Q('🐟 ¿Cómo se dice en inglés?',['flower','tree','fish'],2)]}},
+ {moment:'desarrollo',title:'Repite conmigo',kind:'audio',body:{text:'Graba tu voz diciendo: water, tree, fish, sun. ¡Tú puedes!',max:30}},
+ {moment:'cierre',title:'Cuidamos la naturaleza',kind:'quiz',body:{qs:[Q('💧 Cerramos la llave cuando no la usamos.',['Sí 👍','No 👎'],0),Q('🗑️ Tiramos la basura al río.',['Sí 👍','No 👎'],1),Q('🌱 Sembramos y cuidamos las plantas.',['Sí 👍','No 👎'],0)]}},
+ {moment:'cierre',title:'Mi recurso favorito',kind:'task',body:{intro:'Escoge tu recurso natural favorito (agua, árbol, animal…) y cuéntanos por qué:',fields:['Mi recurso favorito es…','Me gusta porque…']}}
+];
+const $=s=>document.querySelector(s), esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const sb=CFG.url?supabase.createClient(CFG.url,CFG.key):null;
+const S={items:[],user:null,prof:null,tab:'portada',done:new Set(),grade:+(localStorage.getItem('nr_grade')||9)};
+const isAdmin=()=>!sb||S.prof?.role==='docente';
+const G=()=>isAdmin()?S.grade:(S.prof?.grade??null);
+const gi=()=>S.items.filter(i=>(i.grade??9)===G());
+const toast=m=>{const t=$('#toast');t.textContent=m;t.classList.add('on');setTimeout(()=>t.classList.remove('on'),2400)};
+
+async function load(){
+ if(sb){const{data,error}=await sb.from('items').select('*').order('pos').order('id');S.items=error?DEFAULT.map((d,i)=>({...d,id:'d'+i})):data||[];}
+ else{const l=localStorage.getItem('nr_items');S.items=l?JSON.parse(l):[...DEFAULT.map((d,i)=>({...d,id:i+1,pos:i})),...DEFAULT_PRE.map((d,i)=>({...d,grade:0,id:100+i,pos:i}))]}
+}
+const saveLocal=()=>!sb&&localStorage.setItem('nr_items',JSON.stringify(S.items));
+async function loadProf(){
+ if(!sb){await loadDone();return}const{data:{session}}=await sb.auth.getSession();S.user=session?.user||null;S.prof=null;
+ if(S.user){const{data}=await sb.from('profiles').select('*').eq('id',S.user.id).single();S.prof=data}await loadDone()
+}
+/* ---- NAV / VISTAS ---- */
+function nav(){
+ const tabs=[['portada','Portada'],['inicio','Inicio'],['desarrollo','Desarrollo'],['cierre','Cierre'],['equipo','Equipo']];
+ if(isAdmin())tabs.push(['admin','⚙️ Admin']);
+ $('#nav').innerHTML=gctl()+tabs.map(([k,l])=>`<button class="${S.tab===k?'on':''}" onclick="go('${k}')">${l}</button>`).join('')+
+  (sb?(S.user?`<button onclick="out()">Salir (${esc(S.prof?.name||'')})</button>`:`<button class="pri btn" onclick="authBox()">Ingresar</button>`):'');
+}
+function go(t){S.tab=t;scrollTo({top:0,behavior:'smooth'});render()}
+function render(){nav();if(sb&&S.user&&S.prof&&!isAdmin()&&S.prof.grade==null)gradeBox();const m=$('#main');({portada,inicio:()=>moment('inicio'),desarrollo:()=>moment('desarrollo'),cierre:()=>moment('cierre'),equipo,admin}[S.tab])(m)}
+function portada(m){
+ m.innerHTML=`<div class="view on"><span class="tag">${G()!=null?gl(G())+' · English':'English'}</span><h1>Let’s explore our<br>natural resources!</h1>
+ <p class="lead">Learn about our environment and protect it. <br><i>Aprende sobre nuestro entorno y protégelo.</i></p>
+ <div class="row"><button class="btn pri" onclick="go('inicio')">Empezar la secuencia →</button><button class="btn" onclick="go('equipo')">Conoce al equipo</button></div>
+ <div class="grid">${Object.entries(MOM).map(([k,v])=>`<div class="card" style="cursor:pointer" onclick="go('${k}')"><div style="font-size:2.4rem">${v.e}</div><span class="tag">${v.time}</span><h3>${v.n}</h3><p>${v.t}</p><div class="go">Ver actividades →</div></div>`).join('')}</div>
+ ${sb?'':'<p class="lead" style="font-size:.9rem;margin-top:26px;opacity:.7">Modo demo: configura Supabase en index.html para activar inicio de sesión y base de datos.</p>'}</div>`;
+}
+function moment(k){
+ if(sb&&!S.user)return $('#main').innerHTML=`<div class="view on card"><h2>Ingresa para ver las actividades de tu grado</h2><p class="lead">Inicia sesión o crea tu cuenta y elige tu grado.</p><button class="btn pri" onclick="authBox()">Ingresar</button></div>`;
+ const v=MOM[k],it=gi().filter(i=>i.moment===k),d=it.filter(i=>S.done.has(String(i.id))).length,pc=it.length?Math.round(d/it.length*100):0;
+ $('#main').innerHTML=`<div class="view on"><span class="tag">${v.e} ${v.n}</span><h2>${v.t}</h2>
+ <div class="meta"><span>⏱ ${v.time}</span><span>🎯 ${v.obj}</span></div>
+ <div class="pbar"><i style="width:${pc}%"></i></div><p>${d}/${it.length} actividades completadas</p>
+ <div class="grid">${it.map(i=>`<div class="card" style="cursor:pointer" onclick="open_('${i.id}')">${S.done.has(String(i.id))?'<span class="tag" style="background:#1f9d6a;color:#fff">✓ Hecha</span> ':''}<span class="tag">${{quiz:'🎮 Quiz',memory:'🧠 Memoria',embed:'🖥 Interactivo',text:'📝 Lectura',task:'✍️ Escritura',audio:'🎙 Audio'}[i.kind]}</span><h3>${esc(i.title)}</h3><div class="go">Abrir →</div></div>`).join('')||'<p>Aún no hay actividades en esta fase.</p>'}</div></div>`;
+}
+function equipo(m){
+ m.innerHTML=`<div class="view on team"><h2>Docentes en formación</h2><p class="lead">Equipo responsable de la secuencia didáctica.</p>
+ <div class="grid">${TEAM.map(([n,f])=>`<div class="card"><img src="${f}" alt="${esc(n)}" onerror="this.outerHTML='<div class=ph>${esc(n[0])}</div>'"><h3>${esc(n)}</h3><span class="tag">Docente practicante</span></div>`).join('')}</div></div>`;
+}
+/* ---- MODAL / ACTIVIDADES ---- */
+const modal=h=>{$('#box').innerHTML=`<button class="x" onclick="closeM()">✕</button>`+h;$('#modal').classList.add('on')};
+const closeM=()=>{$('#modal').classList.remove('on');if(['inicio','desarrollo','cierre'].includes(S.tab))render()};
+$('#modal').onclick=e=>{if(e.target.id==='modal')closeM()};
+function open_(id){
+ const i=S.items.find(x=>String(x.id)===String(id));if(!i)return;if(sb&&!S.user){authBox();return toast('Ingresa para desarrollar la actividad')}const b=i.body||{};
+ if(i.kind==='text')modal(`<h2>${esc(i.title)}</h2><div class="txt">${esc(b.text)}</div>`);
+ else if(i.kind==='embed'){const u=/^https:\/\//.test(b.url||'')?b.url:'';modal(`<h2>${esc(i.title)}</h2>${u?`<iframe src="${esc(u)}" allowfullscreen loading="lazy"></iframe>`:'<p>URL no válida (debe iniciar con https://)</p>'}`)}
+ else if(i.kind==='quiz')quiz(i);else if(i.kind==='memory')memory(i);else if(i.kind==='task')task(i);else if(i.kind==='audio')audio(i);
+}
+function quiz(i,n=0,sc=0){
+ const qs=i.body.qs||[];
+ if(n>=qs.length){save(i,sc,qs.length);return modal(`<h2>🎉 ${esc(i.title)}</h2><p class="lead">Resultado: <b>${sc}/${qs.length}</b></p><button class="btn pri" onclick="open_('${i.id}')">Repetir</button>`)}
+ const q=qs[n];window._q=(k,btn)=>{const ok=k===q.a;document.querySelectorAll('.opt').forEach((o,j)=>{o.disabled=true;if(j===q.a)o.classList.add('ok')});if(!ok)btn.classList.add('no');setTimeout(()=>quiz(i,n+1,sc+(ok?1:0)),900)};
+ modal(`<span class="tag">${n+1} / ${qs.length}</span><h2>${esc(q.q)}</h2>${q.o.map((o,k)=>`<button class="opt" onclick="_q(${k},this)">${esc(o)}</button>`).join('')}`);
+}
+function memory(i){
+ const cards=i.body.pairs.flatMap((p,k)=>[{k,t:p[0]},{k,t:p[1]}]).sort(()=>Math.random()-.5);let sel=[],done=0,moves=0;
+ modal(`<h2>${esc(i.title)}</h2><p>Une cada palabra con su traducción.</p><div class="mem" id="mem">${cards.map((c,x)=>`<div class="mc" data-x="${x}">${esc(c.t)}</div>`).join('')}</div><p id="mv" class="lead"></p>`);
+ document.querySelectorAll('.mc').forEach(el=>el.onclick=()=>{
+  if(sel.length>1||el.classList.contains('f')||el.classList.contains('d'))return;el.classList.add('f');sel.push(el);
+  if(sel.length===2){moves++;const[a,b]=sel;if(cards[a.dataset.x].k===cards[b.dataset.x].k){a.className=b.className='mc d';sel=[];if(++done===cards.length/2){$('#mv').textContent=`🎉 ¡Completado en ${moves} intentos!`;save(i,cards.length/2,cards.length/2)}}else setTimeout(()=>{a.classList.remove('f');b.classList.remove('f');sel=[]},800)}
+ });
+}
+async function save(i,s,t){markDone(i.id);if(sb&&S.user&&typeof i.id==='number')await sb.from('progress').insert({user_id:S.user.id,item_id:i.id,score:s,total:t})}
+/* ---- AUTH ---- */
+function authBox(){
+ modal(`<h2>Ingresar</h2><label>Nombre (solo para registrarte)</label><input id="an"><label>Grado (solo para registrarte)</label><select id="ag"><option value="">Elige tu grado</option>${GRADES.map(g=>`<option value="${g}">${gl(g)}</option>`).join('')}</select><label>Correo</label><input id="ae" type="email"><label>Contraseña (mín. 6)</label><input id="ap" type="password">
+ <div class="row"><button class="btn pri" onclick="auth('in')">Iniciar sesión</button><button class="btn" onclick="auth('up')">Crear cuenta</button></div>`);
+}
+async function auth(m){
+ const e=$('#ae').value.trim(),p=$('#ap').value;if(m==='up'&&!$('#ag').value)return toast('Elige tu grado');
+ const r=m==='in'?await sb.auth.signInWithPassword({email:e,password:p}):await sb.auth.signUp({email:e,password:p,options:{data:{name:$('#an').value.trim(),grade:$('#ag').value}}});
+ if(r.error)return toast(r.error.message);closeM();await loadProf();toast('¡Bienvenid@!');render();
+}
+async function out(){await sb.auth.signOut();S.user=S.prof=null;S.done=new Set();if(S.tab==='admin')S.tab='portada';render()}
+/* ---- PROGRESO / TAREAS / AUDIO ---- */
+const LR=()=>JSON.parse(localStorage.getItem('nr_resp')||'{}');
+async function loadDone(){
+ S.done=new Set();
+ if(sb){if(!S.user)return;
+  const[a,b]=await Promise.all([sb.from('progress').select('item_id').eq('user_id',S.user.id),sb.from('responses').select('item_id').eq('user_id',S.user.id)]);
+  [...(a.data||[]),...(b.data||[])].forEach(r=>S.done.add(String(r.item_id)));
+ }else JSON.parse(localStorage.getItem('nr_done')||'[]').forEach(x=>S.done.add(String(x)));
+}
+function markDone(id){S.done.add(String(id));if(!sb)localStorage.setItem('nr_done',JSON.stringify([...S.done]))}
+const modelHtml=m=>`<div class="card" style="margin-top:14px"><span class="tag">Model · Modelo</span><div class="txt">${esc(m)}</div></div>`;
+async function task(i){
+ const b=i.body||{},f=b.fields||[];let r=null;
+ if(sb){const{data}=await sb.from('responses').select('*').eq('user_id',S.user.id).eq('item_id',i.id).maybeSingle();r=data}else r=LR()[i.id]||null;
+ const a=r?.answers||{};
+ modal(`<h2>${esc(i.title)}</h2><div class="txt" style="margin-bottom:10px">${esc(b.intro)}</div>
+ ${f.map((x,k)=>`<label>${esc(x)}</label><textarea rows="2" data-k="${k}">${esc(a[k]||'')}</textarea>`).join('')}
+ <div class="row"><button class="btn pri" onclick="sendTask('${i.id}')">Guardar y enviar</button><span id="ts">${r?'✓ Enviado':''}</span></div>
+ <div id="mdl">${r&&b.model?modelHtml(b.model):''}</div>
+ ${r?.feedback?`<div class="card" style="margin-top:14px"><span class="tag">Comentario de tu docente ${esc(r.grade||'')}</span><div class="txt">${esc(r.feedback)}</div></div>`:''}`);
+}
+async function sendTask(id){
+ const i=S.items.find(x=>String(x.id)===String(id)),ans={};
+ document.querySelectorAll('#box textarea[data-k]').forEach(t=>ans[t.dataset.k]=t.value.trim());
+ if(!Object.values(ans).some(Boolean))return toast('Escribe tu respuesta');
+ const row={answers:ans,updated_at:new Date().toISOString()};
+ if(sb){const r=await sb.from('responses').upsert({...row,user_id:S.user.id,item_id:i.id},{onConflict:'user_id,item_id'});if(r.error)return toast(r.error.message)}
+ else{const l=LR();l[id]={...(l[id]||{}),...row};localStorage.setItem('nr_resp',JSON.stringify(l))}
+ markDone(id);$('#ts').textContent='✓ Enviado';if(i.body.model)$('#mdl').innerHTML=modelHtml(i.body.model);toast('Respuesta guardada ✓');
+}
+function audio(i){
+ const max=i.body.max||30;
+ modal(`<h2>${esc(i.title)}</h2><div class="txt">${esc(i.body.text)}</div>
+ <div class="row" style="margin:14px 0"><button class="btn pri" id="rb">🎙 Grabar</button><span id="rt">0 / ${max}s</span></div>
+ <audio id="pl" controls style="width:100%;display:none"></audio>
+ <div class="row" style="margin-top:12px"><button class="btn" id="sendA" style="display:none">Enviar grabación</button></div>`);
+ let mr,chunks=[],blob,tm,sec=0;
+ $('#rb').onclick=async()=>{
+  if(mr&&mr.state==='recording'){mr.stop();return}
+  try{const st=await navigator.mediaDevices.getUserMedia({audio:true});mr=new MediaRecorder(st);chunks=[];sec=0;
+   mr.ondataavailable=e=>chunks.push(e.data);
+   mr.onstop=()=>{clearInterval(tm);st.getTracks().forEach(t=>t.stop());blob=new Blob(chunks,{type:mr.mimeType||'audio/webm'});const p=$('#pl');p.src=URL.createObjectURL(blob);p.style.display='block';$('#sendA').style.display='';$('#rb').textContent='🎙 Grabar de nuevo'};
+   mr.start();$('#rb').textContent='⏹ Detener';
+   tm=setInterval(()=>{$('#rt').textContent=++sec+' / '+max+'s';if(sec>=max)mr.stop()},1000);
+  }catch(e){toast('No se pudo acceder al micrófono')}
+ };
+ $('#sendA').onclick=async()=>{
+  if(!sb){markDone(i.id);return toast('Demo: el audio no se guarda sin Supabase')}
+  const type=(blob.type||'audio/webm').split(';')[0],path=`${S.user.id}/${i.id}.${type.includes('mp4')?'mp4':'webm'}`;
+  const u=await sb.storage.from('audios').upload(path,blob,{upsert:true,contentType:type});if(u.error)return toast(u.error.message);
+  const r=await sb.from('responses').upsert({user_id:S.user.id,item_id:i.id,audio_path:path,updated_at:new Date().toISOString()},{onConflict:'user_id,item_id'});
+  if(r.error)return toast(r.error.message);markDone(i.id);toast('Audio enviado ✓');
+ };
+}
+/* ---- REVISION DOCENTE ---- */
+async function respView(){
+ const el=$('#resp');el.innerHTML='Cargando…';let rs=[],pf={};
+ if(sb){const a=await sb.from('responses').select('*').order('updated_at',{ascending:false});rs=a.data||[];const p=await sb.from('profiles').select('id,name,grade');(p.data||[]).forEach(x=>pf[x.id]=x);const g=$('#rg').value;if(g)rs=rs.filter(r=>String(pf[r.user_id]?.grade)===g)}
+ else rs=Object.entries(LR()).map(([id,r])=>({item_id:id,...r}));
+ el.innerHTML=rs.map(r=>{const it=S.items.find(x=>String(x.id)===String(r.item_id))||{title:'(actividad borrada)',body:{}},f=it.body.fields||[];
+  return `<div class="card" style="margin-top:12px"><span class="tag">${esc(pf[r.user_id]?.name||'Demo')}${pf[r.user_id]?.grade!=null?' · '+gl(pf[r.user_id].grade):''}</span><h3>${esc(it.title)}</h3>
+  ${f.map((q,k)=>`<p><b>${esc(q)}</b><br>${esc((r.answers||{})[k]||'—')}</p>`).join('')}
+  ${r.audio_path?`<button class="btn sm" onclick="playA('${esc(r.audio_path)}')">▶ Escuchar audio</button>`:''}
+  ${sb?`<label>Comentario</label><textarea rows="2" id="fb${r.id}">${esc(r.feedback||'')}</textarea><div class="row"><input id="gr${r.id}" style="width:130px" placeholder="Nota" value="${esc(r.grade||'')}"><button class="btn sm pri" onclick="fbSave(${r.id})">Guardar comentario</button></div>`:''}</div>`}).join('')||'<p>Aún no hay respuestas.</p>';
+}
+async function fbSave(id){const r=await sb.from('responses').update({feedback:$('#fb'+id).value,grade:$('#gr'+id).value}).eq('id',id);toast(r.error?r.error.message:'Comentario guardado ✓')}
+async function playA(p){const{data,error}=await sb.storage.from('audios').createSignedUrl(p,300);if(error)return toast(error.message);new Audio(data.signedUrl).play()}
+async function reseed(){if(!confirm('Esto BORRA las actividades de este grado y las respuestas de los estudiantes a ellas y carga el contenido inicial. ¿Continuar?'))return;await sb.from('items').delete().eq('grade',S.grade);await seed()}
+/* ---- GRADOS ---- */
+function gctl(){
+ if(isAdmin())return `<select id="gs" onchange="setGrade(this.value)" style="width:auto;margin:0;padding:8px 14px;border-radius:99px;font-weight:700">${GRADES.map(g=>`<option value="${g}" ${g===S.grade?'selected':''}>${gl(g)}</option>`).join('')}</select>`;
+ return G()!=null?`<span class="btn" style="cursor:default">${gl(G())}</span>`:'';
+}
+function setGrade(v){S.grade=+v;localStorage.setItem('nr_grade',v);render()}
+function gradeBox(){modal(`<h2>¿De qué grado eres?</h2><p class="lead">Elige tu grado para ver tus actividades. Si te equivocas, tu docente podrá corregirlo.</p><div class="row">${GRADES.map(g=>`<button class="btn" onclick="myGrade(${g})">${gl(g)}</button>`).join('')}</div>`)}
+async function myGrade(g){const r=await sb.rpc('set_my_grade',{g});if(r.error)return toast(r.error.message);await loadProf();closeM();render()}
+async function copyGrade(){
+ const f=+$('#cg').value;if(f===S.grade)return toast('Elige otro grado de origen');
+ const src=S.items.filter(i=>(i.grade??9)===f);if(!src.length)return toast('Ese grado no tiene actividades');
+ if(!confirm(`¿Copiar ${src.length} actividades de ${gl(f)} a ${gl(S.grade)}?`))return;
+ const rows=src.map(({moment,title,kind,body,pos})=>({moment,title,kind,body,pos,grade:S.grade,author:S.prof?.name||'demo'}));
+ if(sb){const r=await sb.from('items').insert(rows);if(r.error)return toast(r.error.message)}
+ else{rows.forEach((r,k)=>S.items.push({...r,id:Date.now()+k}));saveLocal()}
+ await load();toast('Copiado ✓');admin($('#main'));
+}
+async function stuView(){
+ const el=$('#stu');el.innerHTML='Cargando…';const f=$('#sg').value;
+ const{data,error}=await sb.from('profiles').select('id,name,grade').eq('role','estudiante').order('name');
+ if(error)return el.innerHTML=esc(error.message);
+ const L=(data||[]).filter(s=>!f||(f==='none'?s.grade==null:String(s.grade)===f));
+ el.innerHTML=L.map(s=>`<div class="li"><span>${esc(s.name)}</span><select style="width:auto;margin:0" onchange="setStuGrade('${s.id}',this.value)"><option value="">Sin grado</option>${GRADES.map(g=>`<option value="${g}" ${g===s.grade?'selected':''}>${gl(g)}</option>`).join('')}</select></div>`).join('')||'<p>No hay estudiantes.</p>';
+}
+async function setStuGrade(id,v){const r=await sb.from('profiles').update({grade:v?+v:null}).eq('id',id);toast(r.error?r.error.message:'Grado actualizado ✓')}
+/* ---- ADMIN ---- */
+const HINT={text:'Escribe el texto de la actividad…',embed:'https://view.genially.com/… (Genially, Canva, Educaplay, Wordwall, Padlet…)',quiz:'Una pregunta por línea:\nPregunta | opcion1;opcion2;opcion3 | indice de la correcta (0,1,2)',memory:'Un par por línea:\nwater = agua',task:'Instrucciones (texto libre)\n? Campo que el estudiante debe llenar (una línea por campo)\n? Otro campo\n> Modelo de respuesta (se muestra después de enviar)',audio:'Instrucciones para la grabación (máx. 30 s)'};
+const toTxt=i=>{const b=i.body||{};return i.kind==='text'?b.text:i.kind==='embed'?b.url:i.kind==='audio'?b.text:i.kind==='task'?(b.intro||'')+'\n'+(b.fields||[]).map(f=>'? '+f).join('\n')+(b.model?'\n'+b.model.split('\n').map(l=>'> '+l).join('\n'):''):i.kind==='quiz'?(b.qs||[]).map(q=>`${q.q} | ${q.o.join(';')} | ${q.a}`).join('\n'):(b.pairs||[]).map(p=>p.join(' = ')).join('\n')};
+const fromTxt=(k,t)=>{const L=t.split('\n').map(s=>s.trim()).filter(Boolean);
+ if(k==='text')return{text:t};if(k==='embed')return{url:t.trim()};if(k==='audio')return{text:t,max:30};
+ if(k==='task'){const R=t.split('\n');return{intro:R.filter(l=>!/^\s*[?>]/.test(l)).join('\n').trim(),fields:R.filter(l=>/^\s*\?/.test(l)).map(l=>l.replace(/^\s*\?\s*/,'')),model:R.filter(l=>/^\s*>/.test(l)).map(l=>l.replace(/^\s*>\s*/,'')).join('\n')}}
+ if(k==='quiz')return{qs:L.map(l=>{const[q,o,a]=l.split('|').map(s=>s.trim());return{q,o:o.split(';').map(s=>s.trim()),a:+a||0}})};
+ return{pairs:L.map(l=>l.split('=').map(s=>s.trim()))}};
+function admin(m){
+ if(!isAdmin()){m.innerHTML='<div class="view on card">Acceso solo para docentes.</div>';return}
+ m.innerHTML=`<div class="view on"><h2>Panel docente</h2><p class="lead">Agrega, edita u ordena actividades por fase.</p>
+ <div class="card"><h3 id="ft">Nueva actividad</h3><input type="hidden" id="fid">
+ <div class="row"><div style="flex:1"><label>Fase</label><select id="fm">${Object.entries(MOM).map(([k,v])=>`<option value="${k}">${v.n}</option>`).join('')}</select></div>
+ <div style="flex:1"><label>Tipo</label><select id="fk" onchange="$('#fb').placeholder=HINT[this.value]"><option value="text">Texto / actividad</option><option value="embed">Interactivo (Genially, Canva, Educaplay…)</option><option value="quiz">Quiz</option><option value="memory">Juego de memoria</option><option value="task">Escritura (respuestas del estudiante)</option><option value="audio">Grabación de audio</option></select></div>
+ <div style="width:90px"><label>Orden</label><input id="fo" type="number" value="0"></div><div style="width:130px"><label>Grado</label><select id="fg">${GRADES.map(g=>`<option value="${g}" ${g===S.grade?'selected':''}>${gl(g)}</option>`).join('')}</select></div></div>
+ <label>Título</label><input id="ftit"><label>Contenido</label><textarea id="fb" rows="6" placeholder="${HINT.text}"></textarea>
+ <div class="row"><button class="btn pri" onclick="saveItem()">Guardar</button><button class="btn" onclick="saveItem(true)">Guardar como copia</button><button class="btn" onclick="admin($('#main'))">Limpiar</button></div></div>
+ <div class="card" style="margin-top:18px"><h3>Actividades · ${gl(S.grade)} (${gi().length})</h3>${gi().map(i=>`<div class="li"><span><span class="tag">${i.moment}</span> ${esc(i.title)}</span><span class="row"><button class="btn sm" onclick="edit('${i.id}')">Editar</button><button class="btn sm" onclick="del('${i.id}')">Borrar</button></span></div>`).join('')}
+ <div class="row" style="margin-top:12px"><select id="cg" style="width:auto">${GRADES.map(g=>`<option value="${g}">Copiar desde ${gl(g)}</option>`).join('')}</select><button class="btn sm" onclick="copyGrade()">Copiar a ${gl(S.grade)}</button></div>${sb&&!gi().length?'<button class="btn pri" onclick="seed()" style="margin-top:12px">Cargar contenido inicial (PowerPoint)</button>':''}</div>
+ <div class="card" style="margin-top:18px"><h3>Respuestas de estudiantes</h3><div class="row"><select id="rg" style="width:auto"><option value="">Todos los grados</option>${GRADES.map(g=>`<option value="${g}" ${g===S.grade?'selected':''}>${gl(g)}</option>`).join('')}</select><button class="btn pri sm" onclick="respView()">Ver respuestas</button></div><div id="resp"></div></div>
+ ${sb?`<div class="card" style="margin-top:18px"><h3>Estudiantes y grados</h3><p>Si un estudiante eligió mal su grado, corrígelo aquí.</p><div class="row"><select id="sg" style="width:auto"><option value="">Todos</option><option value="none">Sin grado</option>${GRADES.map(g=>`<option value="${g}">${gl(g)}</option>`).join('')}</select><button class="btn pri sm" onclick="stuView()">Ver estudiantes</button></div><div id="stu"></div></div>`:''}
+ ${sb&&gi().length?'<button class="btn sm" style="margin-top:18px" onclick="reseed()">Restablecer contenido inicial de este grado</button>':''}</div>`;
+}
+function edit(id){const i=S.items.find(x=>String(x.id)===String(id));$('#ft').textContent='Editando';$('#fid').value=i.id;$('#fm').value=i.moment;$('#fk').value=i.kind;$('#fo').value=i.pos||0;$('#fg').value=i.grade??9;$('#ftit').value=i.title;$('#fb').value=toTxt(i);scrollTo({top:0,behavior:'smooth'})}
+async function saveItem(copy){
+ const id=copy?'':$('#fid').value,k=$('#fk').value,row={moment:$('#fm').value,title:$('#ftit').value.trim(),kind:k,pos:+$('#fo').value||0,grade:+$('#fg').value,author:S.prof?.name||'demo'};
+ if(!row.title)return toast('Falta el título');
+ try{row.body=fromTxt(k,$('#fb').value)}catch(e){return toast('Formato inválido')}
+ if(sb){const r=id?await sb.from('items').update(row).eq('id',id):await sb.from('items').insert(row);if(r.error)return toast(r.error.message)}
+ else{if(id)S.items=S.items.map(x=>String(x.id)===id?{...x,...row}:x);else S.items.push({...row,id:Date.now()});saveLocal()}
+ await load();toast('Guardado ✓');admin($('#main'));
+}
+async function del(id){if(!confirm('¿Borrar esta actividad?'))return;if(sb)await sb.from('items').delete().eq('id',id);else{S.items=S.items.filter(x=>String(x.id)!==String(id));saveLocal()}await load();admin($('#main'))}
+async function seed(){const r=await sb.from('items').insert((S.grade===0?DEFAULT_PRE:DEFAULT).map((d,i)=>({...d,pos:i,author:S.prof?.name,grade:S.grade})));if(r.error)return toast(r.error.message);await load();toast('Contenido cargado');admin($('#main'))}
+(async()=>{await loadProf();await load();render();if(sb)sb.auth.onAuthStateChange(async()=>{await loadProf();nav()})})();
+</script>
+</body>
+</html>
